@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>$THERIAN — I AM THE WOLF</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Bebas+Neue&family=Share+Tech+Mono&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080808;
+    --wolf: #1a1a2e;
+    --neon: #00ff88;
+    --red: #ff2244;
+    --orange: #ff6b00;
+    --white: #f0f0f0;
+    --grey: #888;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Share Tech Mono', monospace;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* === HERO === */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 2rem;
+    background: radial-gradient(ellipse at 50% 0%, #1a1a2e 0%, #080808 70%);
+    overflow: hidden;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    font-family: 'Black Ops One', cursive;
+    font-size: clamp(120px, 25vw, 300px);
+    color: rgba(0, 255, 136, 0.03);
+    letter-spacing: -10px;
+    pointer-events: none;
+    white-space: nowrap;
+    animation: driftBg 20s ease-in-out infinite;
+  }
+
+  @keyframes driftBg {
+    0%, 100% { transform: translateX(-5%) rotate(-2deg); }
+    50% { transform: translateX(5%) rotate(2deg); }
+  }
+
+  .paws-rain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .paw {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0;
+    animation: fallPaw linear infinite;
+  }
+
+  @keyframes fallPaw {
+    0% { transform: translateY(-50px) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.3; }
+    90% { opacity: 0.1; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
+
+  .wolf-emoji {
+    font-size: clamp(80px, 15vw, 150px);
+    animation: wolfPulse 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px rgba(0,255,136,0.5));
+    position: relative;
+    z-index: 2;
+  }
+
+  @keyframes wolfPulse {
+    0%, 100% { transform: scale(1) rotate(-3deg); }
+    50% { transform: scale(1.08) rotate(3deg); }
+  }
+
+  .ticker {
+    font-family: 'Black Ops One', cursive;
+    font-size: clamp(70px, 18vw, 180px);
+    color: var(--neon);
+    letter-spacing: 4px;
+    line-height: 0.9;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    text-shadow:
+      0 0 20px rgba(0,255,136,0.8),
+      0 0 60px rgba(0,255,136,0.4),
+      0 0 120px rgba(0,255,136,0.2);
+    animation: glitch 4s infinite;
+  }
+
+  @keyframes glitch {
+    0%, 94%, 100% { 
+      text-shadow: 0 0 20px rgba(0,255,136,0.8), 0 0 60px rgba(0,255,136,0.4);
+      transform: none;
+    }
+    95% { transform: translate(-3px, 0); text-shadow: 3px 0 #ff2244, -3px 0 #00ff88; }
+    96% { transform: translate(3px, 0); text-shadow: -3px 0 #ff2244, 3px 0 #00ff88; }
+    97% { transform: none; }
+  }
+
+  .tagline {
+    font-family: 'Permanent Marker', cursive;
+    font-size: clamp(18px, 4vw, 36px);
+    color: var(--orange);
+    text-align: center;
+    margin: 0.5rem 0 2rem;
+    position: relative;
+    z-index: 2;
+    animation: fadeInUp 1s 0.5s both;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-desc {
+    max-width: 620px;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--grey);
+    line-height: 1.7;
+    position: relative;
+    z-index: 2;
+    animation: fadeInUp 1s 0.8s both;
+  }
+
+  .hero-desc span { color: var(--neon); font-weight: bold; }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    animation: fadeInUp 1s 1.1s both;
+  }
+
+  .btn-primary {
+    background: var(--neon);
+    color: var(--black);
+    font-family: 'Black Ops One', cursive;
+    font-size: 1.1rem;
+    padding: 1rem 2.5rem;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: all 0.2s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-primary:hover {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 10px 40px rgba(0,255,136,0.4);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    font-family: 'Black Ops One', cursive;
+    font-size: 1.1rem;
+    padding: 1rem 2.5rem;
+    border: 2px solid rgba(255,255,255,0.3);
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: all 0.2s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--white);
+    background: rgba(255,255,255,0.1);
+    transform: scale(1.05);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--grey);
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    animation: bounce 2s infinite;
+    z-index: 2;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* === MARQUEE === */
+  .marquee-wrap {
+    overflow: hidden;
+    background: var(--neon);
+    padding: 0.6rem 0;
+  }
+
+  .marquee-track {
+    display: flex;
+    white-space: nowrap;
+    animation: marquee 25s linear infinite;
+  }
+
+  .marquee-track span {
+    font-family: 'Black Ops One', cursive;
+    font-size: 1rem;
+    color: var(--black);
+    padding: 0 2rem;
+    letter-spacing: 2px;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* === STATS === */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: rgba(255,255,255,0.05);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .stat-card {
+    background: var(--black);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: background 0.3s;
+  }
+
+  .stat-card:hover { background: rgba(0,255,136,0.05); }
+
+  .stat-number {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 3rem;
+    color: var(--neon);
+    display: block;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--grey);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+    display: block;
+  }
+
+  /* === SECTIONS === */
+  .section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 5px;
+    color: var(--neon);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Black Ops One', cursive;
+    font-size: clamp(36px, 7vw, 80px);
+    line-height: 0.95;
+    margin-bottom: 2rem;
+  }
+
+  /* === ABOUT === */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
+
+  .about-text p {
+    color: var(--grey);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .about-text p strong { color: var(--white); }
+
+  .feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .feature-list li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    border: 1px solid rgba(255,255,255,0.07);
+    transition: all 0.3s;
+    background: rgba(255,255,255,0.02);
+  }
+
+  .feature-list li:hover {
+    border-color: var(--neon);
+    background: rgba(0,255,136,0.05);
+    transform: translateX(5px);
+  }
+
+  .feature-list .icon { font-size: 1.5rem; flex-shrink: 0; }
+
+  .feature-list .text strong {
+    display: block;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    color: var(--white);
+  }
+
+  .feature-list .text span { font-size: 0.8rem; color: var(--grey); }
+
+  /* === VIRAL PROOF === */
+  .viral-section {
+    background: linear-gradient(180deg, #080808 0%, #0d1a12 50%, #080808 100%);
+    border-top: 1px solid rgba(0,255,136,0.08);
+    border-bottom: 1px solid rgba(0,255,136,0.08);
+  }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .news-card {
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 1.5rem;
+    background: rgba(0,255,136,0.03);
+    transition: all 0.3s;
+  }
+
+  .news-card:hover {
+    border-color: rgba(0,255,136,0.3);
+    background: rgba(0,255,136,0.07);
+    transform: translateY(-3px);
+  }
+
+  .news-source {
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    color: var(--neon);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+  }
+
+  .news-headline {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+  }
+
+  .news-flag {
+    font-size: 0.75rem;
+    color: var(--grey);
+  }
+
+  /* === TOKENOMICS === */
+  .tokenomics-section {
+    background: var(--wolf);
+    border-top: 1px solid rgba(0,255,136,0.1);
+    border-bottom: 1px solid rgba(0,255,136,0.1);
+  }
+
+  .token-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1px;
+    background: rgba(255,255,255,0.05);
+    margin-top: 3rem;
+  }
+
+  .token-item {
+    background: var(--wolf);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .token-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--neon);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .token-item:hover { background: rgba(0,255,136,0.07); }
+  .token-item:hover::after { transform: scaleX(1); }
+
+  .token-pct {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 2.5rem;
+    color: var(--neon);
+    display: block;
+  }
+
+  .token-name {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: var(--grey);
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+
+  .token-desc { font-size: 0.75rem; color: rgba(136,136,136,0.6); margin-top: 0.5rem; }
+
+  /* === MANIFESTO === */
+  .manifesto {
+    background: var(--red);
+    padding: 5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .manifesto::before {
+    content: '🐺';
+    position: absolute;
+    font-size: 300px;
+    opacity: 0.06;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .manifesto-text {
+    font-family: 'Black Ops One', cursive;
+    font-size: clamp(24px, 5vw, 60px);
+    line-height: 1.2;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .manifesto-text em {
+    font-style: normal;
+    border-bottom: 3px solid rgba(255,255,255,0.5);
+  }
+
+  /* === ROADMAP === */
+  .roadmap { position: relative; padding-top: 2rem; }
+
+  .roadmap-line {
+    position: absolute;
+    left: 50%;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: rgba(255,255,255,0.1);
+    transform: translateX(-50%);
+  }
+
+  @media (max-width: 768px) { .roadmap-line { left: 1.5rem; } }
+
+  .phase {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    align-items: start;
+  }
+
+  @media (max-width: 768px) {
+    .phase { grid-template-columns: 40px 1fr; }
+    .phase .phase-left { display: none; }
+  }
+
+  .phase-dot {
+    width: 20px; height: 20px;
+    border: 2px solid var(--neon);
+    background: var(--black);
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-top: 0.5rem;
+    transition: all 0.3s;
+  }
+
+  .phase:hover .phase-dot {
+    background: var(--neon);
+    box-shadow: 0 0 20px var(--neon);
+  }
+
+  .phase-content {
+    padding: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.07);
+    background: rgba(255,255,255,0.02);
+    transition: all 0.3s;
+  }
+
+  .phase-content:hover {
+    border-color: rgba(0,255,136,0.3);
+    background: rgba(0,255,136,0.04);
+  }
+
+  .phase-num {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 0.8rem;
+    color: var(--neon);
+    letter-spacing: 3px;
+    margin-bottom: 0.5rem;
+  }
+
+  .phase-title {
+    font-family: 'Black Ops One', cursive;
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .phase-list {
+    list-style: none;
+    font-size: 0.8rem;
+    color: var(--grey);
+    line-height: 2;
+  }
+
+  .phase-list li::before { content: '→ '; color: var(--neon); }
+
+  /* === COMMUNITY === */
+  .community-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .community-card {
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 2rem;
+    background: rgba(255,255,255,0.02);
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    transition: all 0.3s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .community-card:hover {
+    border-color: var(--neon);
+    background: rgba(0,255,136,0.05);
+    transform: translateY(-3px);
+  }
+
+  .community-card .c-icon { font-size: 2rem; }
+  .community-card .c-title { font-family: 'Bebas Neue', cursive; font-size: 1.4rem; letter-spacing: 2px; }
+  .community-card .c-desc { font-size: 0.8rem; color: var(--grey); line-height: 1.6; }
+  .community-card .c-arrow { margin-top: auto; color: var(--neon); font-size: 0.85rem; letter-spacing: 2px; }
+
+  /* === CONTRACT === */
+  .contract-box {
+    background: rgba(0,255,136,0.05);
+    border: 1px solid rgba(0,255,136,0.2);
+    padding: 2rem;
+    text-align: center;
+    margin-top: 3rem;
+  }
+
+  .contract-label {
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    color: var(--grey);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .contract-addr {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: clamp(0.7rem, 2vw, 1rem);
+    color: var(--neon);
+    word-break: break-all;
+    letter-spacing: 2px;
+  }
+
+  .contract-note { margin-top: 1rem; font-size: 0.75rem; color: rgba(136,136,136,0.6); }
+
+  /* === FOOTER === */
+  footer {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 3rem 2rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--grey);
+    letter-spacing: 2px;
+  }
+
+  footer span { color: var(--neon); }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,255,136,0.3), transparent);
+    margin: 0 2rem;
+  }
+
+  /* === HOW TO BUY === */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+    counter-reset: steps;
+  }
+
+  .step-card {
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 2rem 1.5rem;
+    background: rgba(255,255,255,0.02);
+    position: relative;
+    transition: all 0.3s;
+    counter-increment: steps;
+  }
+
+  .step-card::before {
+    content: counter(steps, decimal-leading-zero);
+    font-family: 'Bebas Neue', cursive;
+    font-size: 4rem;
+    color: rgba(0,255,136,0.08);
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    line-height: 1;
+  }
+
+  .step-card:hover {
+    border-color: rgba(0,255,136,0.3);
+    background: rgba(0,255,136,0.04);
+    transform: translateY(-3px);
+  }
+
+  .step-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+
+  .step-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    margin-bottom: 0.7rem;
+    color: var(--white);
+  }
+
+  .step-desc { font-size: 0.8rem; color: var(--grey); line-height: 1.6; }
+  .step-desc span { color: var(--neon); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">THERIAN</div>
+  <div class="paws-rain" id="pawsRain"></div>
+
+  <div class="wolf-emoji">🐺</div>
+  <div class="ticker">$THERIAN</div>
+  <div class="tagline">I don't have a wallet. I have a DEN.</div>
+  <p class="hero-desc">
+    While the world debates whether they're human or animal,<br>
+    <span>we buy.</span> $THERIAN is the token of the most viral meme of 2026.<br>
+    Run on four paws. Buy the dip. Howl to the moon. 🌙
+  </p>
+  <div class="cta-buttons">
+    <a href="#" class="btn-primary">🐺 BUY ON PUMP.FUN</a>
+    <a href="#" class="btn-secondary">📊 VIEW CHART</a>
+  </div>
+  <div class="scroll-hint">▼ SCROLL AND HOWL ▼</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marquee">
+    <span>🐺 $THERIAN</span>
+    <span>🐾 RUN ON FOUR PAWS</span>
+    <span>🔥 #1 VIRAL MEME FEB 2026</span>
+    <span>🌙 TO THE MOON</span>
+    <span>🐺 I AM NOT A SELLER. I AM A WOLF.</span>
+    <span>🐾 BUY THE DIP LIKE A WOLF</span>
+    <span>🔥 $THERIAN ON SOLANA</span>
+    <span>🌙 FAIR LAUNCH — NO TAX — LP BURNED</span>
+    <span>🐺 $THERIAN</span>
+    <span>🐾 RUN ON FOUR PAWS</span>
+    <span>🔥 #1 VIRAL MEME FEB 2026</span>
+    <span>🌙 TO THE MOON</span>
+    <span>🐺 I AM NOT A SELLER. I AM A WOLF.</span>
+    <span>🐾 BUY THE DIP LIKE A WOLF</span>
+    <span>🔥 $THERIAN ON SOLANA</span>
+    <span>🌙 FAIR LAUNCH — NO TAX — LP BURNED</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-card">
+    <span class="stat-number">1B</span>
+    <span class="stat-label">Total Supply</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number">0%</span>
+    <span class="stat-label">Buy Tax</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number">0%</span>
+    <span class="stat-label">Sell Tax</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number">🔥</span>
+    <span class="stat-label">LP Burned</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number">SOL</span>
+    <span class="stat-label">Network</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section">
+  <div class="about-grid">
+    <div class="about-text">
+      <p class="section-label">// WHAT IS $THERIAN</p>
+      <h2 class="section-title">THE<br>WILDEST<br>MEME</h2>
+      <p><strong>Therians</strong> are the viral phenomenon of February 2026. Teenagers and young adults who identify as animals — running on all fours with wolf masks, howling in public parks — have completely broken the internet.</p>
+      <p>Trending on <strong>TikTok, X and Instagram</strong> across Argentina, Mexico, Spain, Colombia, the US and beyond. Major newspapers are covering it. Everyone is talking about it.</p>
+      <p>We captured that moment in a token. <strong>$THERIAN</strong> is the memecoin of the most controversial and viral phenomenon right now. This isn't a coin. It's a pack.</p>
+    </div>
+    <ul class="feature-list">
+      <li>
+        <span class="icon">🐺</span>
+        <div class="text">
+          <strong>100% CURRENT MEME</strong>
+          <span>Trending THIS week. Perfect timing.</span>
+        </div>
+      </li>
+      <li>
+        <span class="icon">🌍</span>
+        <div class="text">
+          <strong>TRENDING IN 10+ COUNTRIES</strong>
+          <span>Argentina, Mexico, Spain, Colombia, US...</span>
+        </div>
+      </li>
+      <li>
+        <span class="icon">⚡</span>
+        <div class="text">
+          <strong>SOLANA SPEED</strong>
+          <span>Lightning fast, minimal fees.</span>
+        </div>
+      </li>
+      <li>
+        <span class="icon">🐾</span>
+        <div class="text">
+          <strong>WILD COMMUNITY</strong>
+          <span>A pack that never stops. Discord + TG + X.</span>
+        </div>
+      </li>
+      <li>
+        <span class="icon">🌙</span>
+        <div class="text">
+          <strong>FAIR LAUNCH</strong>
+          <span>No presale, no team wallet. Everyone equal.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- VIRAL PROOF -->
+<section class="viral-section">
+  <div class="section">
+    <p class="section-label">// THE MEME IS REAL — SEE FOR YOURSELF</p>
+    <h2 class="section-title">BREAKING<br>THE<br>INTERNET</h2>
+    <div class="news-grid">
+      <div class="news-card">
+        <div class="news-source">// INFOBAE</div>
+        <div class="news-headline">THERIANS: THE VIRAL WAVE TAKING OVER TIKTOK & X IN 2026</div>
+        <div class="news-flag">🇦🇷 Argentina · 🇲🇽 Mexico</div>
+      </div>
+      <div class="news-card">
+        <div class="news-source">// EURONEWS</div>
+        <div class="news-headline">THE IDENTITY THAT CHALLENGES THE LINE BETWEEN HUMAN AND ANIMAL</div>
+        <div class="news-flag">🇪🇺 Europe-wide</div>
+      </div>
+      <div class="news-card">
+        <div class="news-source">// EXCÉLSIOR</div>
+        <div class="news-headline">THERIANS: FROM MEME TO SOCIAL SCANDAL — THE PHENOMENON GOING GLOBAL</div>
+        <div class="news-flag">🇲🇽 Mexico</div>
+      </div>
+      <div class="news-card">
+        <div class="news-source">// EL HERALDO</div>
+        <div class="news-headline">BEST THERIAN MEMES: THE NEW TREND THAT BROKE THE INTERNET</div>
+        <div class="news-flag">🇲🇽 Mexico · 🇨🇴 Colombia</div>
+      </div>
+      <div class="news-card">
+        <div class="news-source">// EL COLOMBIANO</div>
+        <div class="news-headline">THOUSANDS OF MEMES EXPLODE AS THERIANS GO MAINSTREAM</div>
+        <div class="news-flag">🇨🇴 Colombia</div>
+      </div>
+      <div class="news-card">
+        <div class="news-source">// YAHOO NEWS</div>
+        <div class="news-headline">WHAT ARE THERIANS? THE TIKTOK PHENOMENON EVERYONE IS TALKING ABOUT</div>
+        <div class="news-flag">🌍 International</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<div class="manifesto">
+  <p class="manifesto-text">
+    "I AM NOT<br>
+    <em>AN INVESTOR</em>.<br>
+    I AM <em>A WOLF</em>.<br>
+    AND WOLVES<br>
+    <em>DON'T SELL</em>."
+  </p>
+</div>
+
+<!-- TOKENOMICS -->
+<section class="tokenomics-section">
+  <div class="section">
+    <p class="section-label">// TOKENOMICS</p>
+    <h2 class="section-title">THE<br>PACK<br>DECIDES</h2>
+    <div class="token-grid">
+      <div class="token-item">
+        <span class="token-pct">100%</span>
+        <div class="token-name">Fair Launch</div>
+        <div class="token-desc">No presale, no special allocations</div>
+      </div>
+      <div class="token-item">
+        <span class="token-pct">1B</span>
+        <div class="token-name">Total Supply</div>
+        <div class="token-desc">1,000,000,000 $THERIAN</div>
+      </div>
+      <div class="token-item">
+        <span class="token-pct">0%</span>
+        <div class="token-name">Buy Tax</div>
+        <div class="token-desc">No tax on buying</div>
+      </div>
+      <div class="token-item">
+        <span class="token-pct">0%</span>
+        <div class="token-name">Sell Tax</div>
+        <div class="token-desc">No tax on selling</div>
+      </div>
+      <div class="token-item">
+        <span class="token-pct">🔥</span>
+        <div class="token-name">LP Burned</div>
+        <div class="token-desc">Liquidity locked forever</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO BUY -->
+<section class="section">
+  <p class="section-label">// HOW TO BUY</p>
+  <h2 class="section-title">JOIN<br>THE<br>PACK</h2>
+  <div class="steps-grid">
+    <div class="step-card">
+      <span class="step-icon">📱</span>
+      <div class="step-title">GET A WALLET</div>
+      <p class="step-desc">Download <span>Phantom</span> or <span>Solflare</span> on your phone or browser. Create your wallet and back up your seed phrase.</p>
+    </div>
+    <div class="step-card">
+      <span class="step-icon">💰</span>
+      <div class="step-title">GET SOME SOL</div>
+      <p class="step-desc">Buy <span>$SOL</span> on any exchange (Coinbase, Binance, Kraken) and send it to your wallet address.</p>
+    </div>
+    <div class="step-card">
+      <span class="step-icon">🔗</span>
+      <div class="step-title">GO TO PUMP.FUN</div>
+      <p class="step-desc">Visit <span>pump.fun</span>, connect your wallet, and search for <span>$THERIAN</span> using the official contract address.</p>
+    </div>
+    <div class="step-card">
+      <span class="step-icon">🐺</span>
+      <div class="step-title">BUY & HOWL</div>
+      <p class="step-desc">Swap your SOL for <span>$THERIAN</span>. Welcome to the pack. Now go spread the word and HOWL 🌙</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ROADMAP -->
+<section class="section">
+  <p class="section-label">// ROADMAP</p>
+  <h2 class="section-title">THE<br>WOLF'S<br>PATH</h2>
+
+  <div class="roadmap">
+    <div class="roadmap-line"></div>
+
+    <div class="phase">
+      <div class="phase-content phase-left">
+        <div class="phase-num">PHASE 01</div>
+        <div class="phase-title">🐾 THE AWAKENING</div>
+        <ul class="phase-list">
+          <li>Launch on Pump.fun</li>
+          <li>Create Telegram + Discord</li>
+          <li>X account with daily memes</li>
+          <li>First organic viral moment</li>
+        </ul>
+      </div>
+      <div class="phase-dot"></div>
+      <div></div>
+    </div>
+
+    <div class="phase">
+      <div></div>
+      <div class="phase-dot"></div>
+      <div class="phase-content">
+        <div class="phase-num">PHASE 02</div>
+        <div class="phase-title">🐺 THE PACK GROWS</div>
+        <ul class="phase-list">
+          <li>1,000 holders</li>
+          <li>DEXScreener + DexTools listing</li>
+          <li>Collab with meme accounts on X</li>
+          <li>Official Telegram sticker pack</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-content phase-left">
+        <div class="phase-num">PHASE 03</div>
+        <div class="phase-title">🌙 MOON OR FOREST</div>
+        <ul class="phase-list">
+          <li>5,000 holders</li>
+          <li>Crypto influencers on X & TikTok</li>
+          <li>Trending on pump.fun front page</li>
+          <li>CEX listing conversations 👀</li>
+        </ul>
+      </div>
+      <div class="phase-dot"></div>
+      <div></div>
+    </div>
+
+    <div class="phase">
+      <div></div>
+      <div class="phase-dot"></div>
+      <div class="phase-content">
+        <div class="phase-num">PHASE 04</div>
+        <div class="phase-title">🔥 TOTAL DOMINANCE</div>
+        <ul class="phase-list">
+          <li>10,000+ holders</li>
+          <li>"The Pack" NFT collection</li>
+          <li>Official merch 🐺</li>
+          <li>Maximum chaos. Maximum glory.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<div class="divider"></div>
+<section class="section">
+  <p class="section-label">// JOIN THE PACK</p>
+  <h2 class="section-title">THE<br>COMMUNITY</h2>
+  <div class="community-grid">
+    <a href="#" class="community-card">
+      <span class="c-icon">📬</span>
+      <span class="c-title">TELEGRAM</span>
+      <span class="c-desc">Join the main group. Memes, buy calls, hype 24/7. The pack never sleeps.</span>
+      <span class="c-arrow">→ JOIN THE PACK</span>
+    </a>
+    <a href="#" class="community-card">
+      <span class="c-icon">🐦</span>
+      <span class="c-title">TWITTER / X</span>
+      <span class="c-desc">Follow for daily memes, updates and the latest $THERIAN alpha.</span>
+      <span class="c-arrow">→ FOLLOW @THERIANCOIN</span>
+    </a>
+    <a href="#" class="community-card">
+      <span class="c-icon">🎮</span>
+      <span class="c-title">DISCORD</span>
+      <span class="c-desc">For the hardcore wolves. Analysis channels, holder perks and giveaways.</span>
+      <span class="c-arrow">→ ENTER THE DEN</span>
+    </a>
+    <a href="#" class="community-card">
+      <span class="c-icon">📊</span>
+      <span class="c-title">DEXSCREENER</span>
+      <span class="c-desc">Track the chart in real time. Watch the pack buy the dip.</span>
+      <span class="c-arrow">→ VIEW CHART</span>
+    </a>
+  </div>
+
+  <div class="contract-box">
+    <p class="contract-label">Contract Address — Solana Network</p>
+    <p class="contract-addr">CONTRACT_ADDRESS_HERE_AFTER_LAUNCH</p>
+    <p class="contract-note">⚠️ Always verify the CA in our official channels before buying. Never trust DMs.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><span>$THERIAN</span> — The memecoin of the most viral meme of 2026 🐺</p>
+  <br>
+  <p>$THERIAN is a community meme token with no guaranteed financial value.<br>
+  This is not financial advice. DYOR. Only invest what you can afford to lose. 🌙</p>
+</footer>
+
+<script>
+  // PAWS RAIN
+  const pawsContainer = document.getElementById('pawsRain');
+  const pawEmojis = ['🐾', '🐺', '🌙', '🐾', '🐾', '🐾'];
+
+  function createPaw() {
+    const paw = document.createElement('div');
+    paw.className = 'paw';
+    paw.textContent = pawEmojis[Math.floor(Math.random() * pawEmojis.length)];
+    paw.style.left = Math.random() * 100 + 'vw';
+    paw.style.fontSize = (Math.random() * 1.5 + 0.8) + 'rem';
+    const duration = Math.random() * 8 + 6;
+    paw.style.animationDuration = duration + 's';
+    paw.style.animationDelay = Math.random() * 3 + 's';
+    pawsContainer.appendChild(paw);
+    setTimeout(() => paw.remove(), (duration + 5) * 1000);
+  }
+
+  for (let i = 0; i < 15; i++) createPaw();
+  setInterval(createPaw, 600);
+
+  // SCROLL ANIMATIONS
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.stat-card, .feature-list li, .token-item, .phase-content, .community-card, .news-card, .step-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
